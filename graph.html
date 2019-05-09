@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Mode Speed Test Graph</title>
+
+    <style>
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+
+</head>
+<body>
+
+<canvas id="myChart" width="400" height="160"></canvas>
+<script>
+    var colors = ["#74b9ff", "#55efc4", "#a29bfe", "#fab1a0", "#fd79a8", "#636e72"];
+    var ctx = document.getElementById('myChart');
+    let dataset = [];
+    $.get("times.json", response => {
+        let counter = 0;
+       for( let key in response ){
+           let current_data = {
+               label: key,
+               data: [],
+               borderColor: colors[counter],
+               backgroundColor: colors[counter]
+           };
+
+           for( let time = 0 ; time < response[key].times.length ; time++ ){
+               let time_data = response[key].times[time].data;
+               current_data["data"].push({
+                   x: time_data.num_items,
+                   y: time_data.exec_time
+               });
+           }
+           dataset.push(current_data);
+           counter++;
+       }
+        var scatterChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: dataset
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of Items Tested'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Amount of Time needed (seconds)'
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

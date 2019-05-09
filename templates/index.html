@@ -4,9 +4,46 @@
     <meta charset="UTF-8">
     <title>Python Mode Speed Test</title>
 
+    <style>
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="static/js/index.js"></script>
 </head>
 <body>
-#BODY_CONTENT#
+
+<h3>Test out python mode function speeds:</h3>
+<p>Select which methods you want to test</p>
+<a href="graph.html" target="_blank">See graph of data!</a>
+<br><br>
+
+<div>
+
+#METHOD_CHECKBOXES#
+</div>
+<br>
+
+<a>Number Of Items To Test:</a><br>
+<input type="number" min="1" max="1000000" id="num-items" value="#RAND_INT#"><br>
+<a>(max: 1000000)</a>
+<br><br>
+
+<button class="run-tests">Run Tests</button>
+<p>Every time you run a test, your data is added to the graph!</p>
+<br>
+
+<h4>Current Status: <a id="status" style="color:green;">available</a></h4>
+
+<div id="results">
+</div>
+
 </body>
 </html>
