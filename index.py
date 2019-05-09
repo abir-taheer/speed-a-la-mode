@@ -3,4 +3,5 @@
 print("Content-Type: text/html")
 print("")
 
-print("content")
+template = open("templates/index.html", "r").read()
+print(template)
